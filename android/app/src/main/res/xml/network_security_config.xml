@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Network Security Configuration
+    This file RESTRICTS what domains the app can connect to.
+    Users can verify the app ONLY connects to your POS API server.
+-->
+<network-security-config>
+    <!-- Default: Block ALL network traffic -->
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+
+    <!-- Allow ONLY your specific API domains -->
+    <domain-config cleartextTrafficPermitted="true">
+        <!-- Your production API domain (replace with your actual domain when you have one) -->
+        <!-- <domain includeSubdomains="true">api.yourposdomain.com</domain> -->
+
+        <!-- Your local development/testing IPs -->
+        <domain includeSubdomains="false">192.168.29.46</domain>
+        <domain includeSubdomains="false">10.63.106.192</domain>
+        <domain includeSubdomains="false">10.129.28.192</domain>  
+        <domain includeSubdomains="false">localhost</domain>
+
+        <!-- Cloudinary for logo image -->
+        <domain includeSubdomains="true">res.cloudinary.com</domain>
+
+        <!-- If using Vercel for API -->
+        <domain includeSubdomains="true">pos-api-test.vercel.app</domain>
+    </domain-config>
+
+    <!-- Block everything else -->
+    <!-- The app CANNOT connect to any other domain -->
+    <!-- This proves to users your app doesn't:
+         - Send data to unknown servers
+         - Track users with analytics
+         - Show ads from ad networks
+         - Connect to suspicious servers
+    -->
+</network-security-config>
